@@ -184,6 +184,13 @@ def _get_file_md5sum(file_name):
         hash_obj.update(f.read())
     return hash_obj.hexdigest().encode('utf-8')
 
+def _get_file_sha1sum(file_name):
+    """Compute the md5 hash of a file."""
+    hash_obj = hashlib.sha1()
+    with open(file_name, 'rb') as f:
+        hash_obj.update(f.read())
+    return hash_obj.hexdigest().encode('utf-8')
+
 
 def _get_reference_md5sum(url):
     """By convention the md5 hash for url is stored in url + '.md5sum'."""
