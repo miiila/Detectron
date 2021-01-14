@@ -27,6 +27,7 @@ import logging
 import numpy as np
 import smtplib
 import sys
+import hashlib
 
 
 def log_json_stats(stats, sort_keys=True):
@@ -81,3 +82,10 @@ def setup_logging(name):
     logging.basicConfig(level=logging.INFO, format=FORMAT, stream=sys.stdout)
     logger = logging.getLogger(name)
     return logger
+
+def _get_file_md5sum(file_name):
+    """Compute the md5 hash of a file."""
+    hash_obj = hashlib.md5()
+    with open(file_name, 'rb') as f:
+        hash_obj.update(f.read())
+    return hash_obj.hexdigest().encode('utf-8')
